@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* ASTRAL mission-control palette */
+  --color-background: #05090f;
+  --color-panel: #0a111c;
+  --color-panel-raised: #0e1624;
+  --color-border: #1b2637;
+  --color-border-strong: #2a3a52;
+  --color-foreground: #dbe5f2;
+  --color-muted: #75849a;
+  --color-faint: #46536a;
+  --color-accent: #46c2f0;
+  --color-accent-dim: #1e5a73;
+  --color-warning: #e8a13c;
+  --color-critical: #e5534b;
+
+  --animate-status-pulse: status-pulse 2.6s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+
+  @keyframes status-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgb(70 194 240 / 0.35);
+    }
+    50% {
+      opacity: 0.55;
+      box-shadow: 0 0 0 5px rgb(70 194 240 / 0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgb(70 194 240 / 0.25);
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <rect width="200" height="240" fill="#0a111c"/>
+  <rect x="0" y="0" width="200" height="240" fill="none" stroke="#2a3a52" stroke-width="2"/>
+  <circle cx="100" cy="92" r="42" fill="#101a2b" stroke="#46c2f0" stroke-width="2" opacity="0.95"/>
+  <path d="M70 92a30 30 0 0 1 60 0v10c0 18-13 32-30 32s-30-14-30-32z" fill="#1c2a42" stroke="#75849a" stroke-width="1.5"/>
+  <path d="M74 96a26 26 0 0 1 52 0" fill="none" stroke="#46c2f0" stroke-width="2.5" opacity="0.8"/>
+  <path d="M60 160c4-26 22-40 40-40s36 14 40 40v60H60z" fill="#16223a" stroke="#2a3a52" stroke-width="2"/>
+  <rect x="80" y="146" width="40" height="22" rx="4" fill="#0a111c" stroke="#46c2f0" stroke-width="1.5"/>
+  <text x="100" y="226" text-anchor="middle" font-family="monospace" font-size="9" fill="#75849a" letter-spacing="3">ALEX CARTER · FE-73</text>
+</svg>

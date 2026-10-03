@@ -30,7 +30,7 @@ function Chip({
   status: HealthStatus;
 }) {
   return (
-    <div className="min-w-0 rounded-sm border border-border bg-panel-raised px-2.5 py-2 text-center">
+    <div className="min-w-0 rounded-sm border border-border bg-panel-raised px-2.5 py-2 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent-dim hover:bg-panel-raised/90">
       <p className="font-mono text-[9px] tracking-[0.2em] text-muted">{label}</p>
       <p className="mt-1 font-mono text-base leading-none text-foreground">
         {value}
@@ -57,7 +57,7 @@ function Panel({
   return (
     <section
       aria-label={title}
-      className={`min-w-0 rounded-sm border border-border bg-panel ${className}`}
+      className={`min-w-0 rounded-sm border border-border bg-panel transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_8px_30px_rgb(0_0_0_/_0.18)] ${className}`}
     >
       <header className="flex items-center justify-between border-b border-border px-4 py-2.5">
         <h2 className="font-mono text-[11px] tracking-[0.18em] text-muted">
@@ -94,10 +94,10 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="motion-reduce:[&_*]:animate-none motion-reduce:[&_*]:transition-none flex min-h-screen flex-col bg-background text-foreground">
       {/* ===== Mission header ===== */}
-      <header className="border-b border-border bg-panel">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-4 sm:px-6">
+      <header className="animate-in fade-in slide-in-from-top-2 duration-500 border-b border-border bg-panel">
+        <div className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3.5 sm:px-6">
           <div className="flex items-center gap-4">
             <div>
               <p className="text-lg font-semibold leading-none tracking-[0.28em] text-foreground">
@@ -150,21 +150,21 @@ export default function Dashboard() {
               <button
                 type="button"
                 onClick={triggerCriticalDemo}
-                className="rounded-sm border border-critical bg-panel-raised px-3 py-2 font-mono text-[10px] tracking-[0.18em] text-critical hover:bg-critical/10"
+                className="rounded-sm border border-critical bg-panel-raised px-3 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_18px_rgb(239_68_68_/_0.12)] font-mono text-[10px] tracking-[0.18em] text-critical hover:bg-critical/10"
               >
                 SIMULATE EMERGENCY
               </button>
               <button
                 type="button"
                 onClick={triggerWarningDemo}
-                className="rounded-sm border border-border bg-panel-raised px-3 py-2 font-mono text-[10px] tracking-[0.18em] text-warning hover:border-warning"
+                className="rounded-sm border border-border bg-panel-raised px-3 py-2 font-mono text-[10px] tracking-[0.18em] text-warning transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_18px_rgb(245_158_11_/_0.10)] hover:border-warning"
               >
                 WARNING
               </button>
               <button
                 type="button"
                 onClick={resumeNominal}
-                className="rounded-sm border border-border bg-panel-raised px-3 py-2 font-mono text-[10px] tracking-[0.18em] text-accent hover:border-accent-dim"
+                className="rounded-sm border border-border bg-panel-raised px-3 py-2 font-mono text-[10px] tracking-[0.18em] text-accent transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-[0_0_18px_rgb(56_189_248_/_0.10)] hover:border-accent-dim"
               >
                 RESUME
               </button>
@@ -173,14 +173,14 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <AlertsPanel alerts={state.alerts} onAcknowledge={acknowledgeAlert} />
+      <div className="animate-in fade-in slide-in-from-top-2 duration-500 delay-75"><AlertsPanel alerts={state.alerts} onAcknowledge={acknowledgeAlert} /></div>
 
       {/* ===== Console body ===== */}
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 gap-4 p-4 sm:p-6 md:grid-cols-2 lg:grid-cols-[300px_minmax(0,1fr)_360px] lg:items-start">
+      <main className="animate-in fade-in duration-500 mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 gap-4 p-4 sm:gap-5 sm:p-6 lg:grid-cols-12 lg:gap-5 lg:items-start">
         {/* --- Right column on desktop, first on mobile --- */}
         <Panel
           title="HEALTH STATUS"
-          className="order-2 lg:order-none lg:col-start-3 lg:row-start-1"
+          className="order-2 lg:order-none lg:col-span-4 lg:col-start-9 lg:row-start-1"
           action={
             <span className="font-mono text-[10px] tracking-[0.2em] text-accent">
               {state.overallStatus === "NORMAL" ? "NOMINAL" : state.overallStatus}
@@ -201,12 +201,12 @@ export default function Dashboard() {
               }`}
             />
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
+          <p className="mt-2.5 text-sm leading-relaxed text-muted">
             {state.overallStatus === "NORMAL"
               ? "All monitored parameters are within nominal crew-health limits."
               : "One or more monitored parameters are outside nominal limits."}
           </p>
-          <div className="mt-4 space-y-2 border-t border-border pt-3">
+          <div className="mt-3.5 space-y-2 border-t border-border pt-3">
             {[
               ["CARDIAC", state.statuses.heartRate],
               ["OXYGENATION", state.statuses.spo2],
@@ -237,7 +237,7 @@ export default function Dashboard() {
         {/* --- Center: crew visualization --- */}
         <section
           aria-label="Crew visualization"
-          className="order-3 rounded-sm border border-border bg-panel lg:order-none lg:col-start-2 lg:row-start-1"
+          className="order-3 rounded-sm border border-border bg-panel transition-all duration-500 hover:border-accent-dim lg:order-none lg:col-span-8 lg:col-start-1 lg:row-start-2"
         >
           <header className="flex items-center justify-between border-b border-border px-4 py-2.5">
             <h2 className="font-mono text-[11px] tracking-[0.18em] text-muted">
@@ -248,14 +248,14 @@ export default function Dashboard() {
             </span>
           </header>
           <div
-            className="flex min-h-[340px] flex-col items-center justify-center gap-5 p-8 lg:min-h-[440px]"
+            className="flex min-h-[330px] flex-col items-center justify-center gap-4 p-4 sm:p-5 lg:min-h-[330px]"
             style={{
               backgroundImage:
                 "linear-gradient(to right, rgb(27 38 55 / 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgb(27 38 55 / 0.35) 1px, transparent 1px)",
               backgroundSize: "44px 44px",
             }}
           >
-            <div className="grid w-full grid-cols-3 items-center gap-3">
+            <div className="grid w-full max-w-[720px] grid-cols-3 items-center gap-2 sm:gap-4 lg:gap-5">
               <div className="col-start-2 row-start-1">
                 <Chip
                   label="OXYGEN"
@@ -274,12 +274,12 @@ export default function Dashboard() {
               </div>
               <div className="col-start-2 row-start-2 flex justify-center px-2">
                 <div
-                  className={`rounded-full border-2 p-4 ${
+                  className={`rounded-full border-2 p-3 sm:p-4 ${
                     state.overallStatus === "CRITICAL"
                       ? "border-critical animate-status-pulse"
                       : state.overallStatus === "WARNING"
                         ? "border-warning animate-status-pulse"
-                        : "border-border-strong"
+                        : "border-accent animate-pulse"
                   }`}
                 >
                   <AstronautSilhouette status={state.overallStatus} />
@@ -319,14 +319,14 @@ export default function Dashboard() {
         {/* --- Left column on desktop, late on mobile --- */}
         <CrewProfile
           t={state.t}
-          className="order-8 lg:order-none lg:col-start-1 lg:row-start-1"
+          className="order-8 lg:order-none lg:col-span-4 lg:col-start-1 lg:row-start-1"
         />
 
-        <OrbitalContext className="order-9 lg:order-none lg:col-start-1 lg:row-start-3" />
+        <OrbitalContext className="order-9 lg:order-none lg:col-span-4 lg:col-start-9 lg:row-start-3" />
 
         <Panel
           title="MISSION HEALTH"
-          className="order-5 lg:order-none lg:col-start-1 lg:row-start-2"
+          className="order-5 lg:order-none lg:col-span-4 lg:col-start-5 lg:row-start-1"
           action={
             <span className="font-mono text-[10px] tracking-[0.18em] text-faint">
               SIMULATED · ILLUSTRATIVE
@@ -388,7 +388,7 @@ export default function Dashboard() {
         {/* --- Right column continued --- */}
         <Panel
           title="HEALTH GRAPH"
-          className="order-6 lg:order-none lg:col-start-3 lg:row-start-2"
+          className="order-6 lg:order-none lg:col-span-8 lg:col-start-1 lg:row-start-3"
           action={
             <span className="font-mono text-[10px] tracking-[0.2em] text-accent">
               LIVE
@@ -400,7 +400,7 @@ export default function Dashboard() {
 
         <Panel
           title="MISSION TIMELINE"
-          className="order-7 lg:order-none lg:col-start-3 lg:row-start-3"
+          className="order-7 lg:order-none lg:col-span-4 lg:col-start-9 lg:row-start-2"
         >
           <Timeline events={state.events} />
         </Panel>
@@ -415,3 +415,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
